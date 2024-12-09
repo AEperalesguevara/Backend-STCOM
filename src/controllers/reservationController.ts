@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
+import { sendConfirmationEmail } from "../services/mailer";
 
 const prisma = new PrismaClient();
 
@@ -31,7 +32,7 @@ export const createReservation = async (
         desc,
       },
     });
-
+    await sendConfirmationEmail({ email, name, date, time, desc });
     // Respuesta exitosa
     res.status(201).json({
       success: true,

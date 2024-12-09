@@ -33,12 +33,23 @@ model Product {
 }
 
 model Purchase {
-  id          Int       @id @default(autoincrement())
-  date        DateTime  @default(now())
+  id          Int            @id @default(autoincrement())
+  date        DateTime       @default(now())
   totalPrice  Float
-  isPaid      Boolean   @default(false)
+  isPaid      Boolean        @default(false)
   userId      Int
-  user        User      @relation(fields: [userId], references: [id])
+  user        User           @relation(fields: [userId], references: [id])
+  items       PurchaseItem[] // Relación con los productos de la compra
+}
+
+model PurchaseItem {
+  id          Int      @id @default(autoincrement())
+  quantity    Int
+  productId   Int
+  productName String
+  productPrice Float
+  purchaseId  Int
+  purchase    Purchase @relation(fields: [purchaseId], references: [id])
 }
 
 model Service {

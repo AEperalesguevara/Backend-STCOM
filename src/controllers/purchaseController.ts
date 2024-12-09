@@ -7,13 +7,24 @@ const prisma = new PrismaClient();
 
 export const createPurchase = async (req: Request, res: Response) => {
   try {
-    const { totalPrice, userId } = req.body;
+    const { totalPrice, userId, cart } = req.body;
 
     const purchase = await prisma.purchase.create({
       data: {
         totalPrice,
         isPaid: true,
         userId,
+        items: {
+          create: cart.map((item: any) => ({
+            productId: item.product_id,
+            productName: item.product_name,
+            productPrice: item.product_price,
+            quantity: item.quantity,
+          })),
+        },
+      },
+      include: {
+        items: true, // Incluir los productos asociados
       },
     });
 
@@ -28,6 +39,9 @@ export const createPurchase = async (req: Request, res: Response) => {
 export const getAllPurchases = async (req: Request, res: Response) => {
   try {
     const purchases = await prisma.purchase.findMany({
+      include: {
+        items: true, // Incluir productos asociados
+      },
       orderBy: {
         date: "desc",
       },
@@ -47,6 +61,9 @@ export const getUserPurchases = async (req: Request, res: Response) => {
   try {
     const purchases = await prisma.purchase.findMany({
       where: { userId: Number(userId) },
+      include: {
+        items: true, // Esto incluye los productos en la consulta
+      },
     });
     res.status(200).json(purchases);
   } catch (error) {
