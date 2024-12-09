@@ -36,8 +36,8 @@ paymentRoute.post("/create-checkout-session", (req, res) => __awaiter(void 0, vo
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: `http://localhost:5173/cart?success=true`,
-            cancel_url: `http://localhost:5173/cart?success=false`,
+            success_url: `https://stcom.vercel.app/cart?success=true`,
+            cancel_url: `https://stcom.vercel.app/cart?success=false`,
         });
         res.status(200).json({ url: session.url });
     }
