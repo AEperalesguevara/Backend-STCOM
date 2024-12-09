@@ -24,7 +24,7 @@ export const createPurchase = async (req: Request, res: Response) => {
         },
       },
       include: {
-        items: true, // Incluir los productos asociados
+        items: true,
       },
     });
 
