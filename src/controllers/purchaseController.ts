@@ -16,9 +16,9 @@ export const createPurchase = async (req: Request, res: Response) => {
         userId,
         items: {
           create: cart.map((item: any) => ({
-            productId: item.product_id,
-            productName: item.product_name,
-            productPrice: item.product_price,
+            productId: item.id,
+            productName: item.name,
+            productPrice: item.price,
             quantity: item.quantity,
           })),
         },

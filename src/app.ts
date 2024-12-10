@@ -4,7 +4,7 @@ import cors from "cors";
 import path from "path";
 import userRouter from "./routes/userRoutes";
 import authRoutes from "./routes/authRoute";
-import reservationRouter from "../src/routes/reservationRoute";
+import reservationRouter from "./routes/reservationRoute";
 import productRoutes from "./routes/productRoute";
 import paymentRoute from "./routes/paymentRoute";
 import purchaseRoute from "./routes/purchaseRoute";
