@@ -14,9 +14,9 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
       price_data: {
         currency: "usd",
         product_data: {
-          name: item.product_name,
+          name: item.name,
         },
-        unit_amount: Math.round(item.product_price * 100), // Convertir a centavos
+        unit_amount: Math.round(item.price * 100), // Convertir a centavos
       },
       quantity: item.quantity,
     }));
