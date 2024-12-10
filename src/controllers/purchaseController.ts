@@ -35,7 +35,6 @@ export const createPurchase = async (req: Request, res: Response) => {
   }
 };
 
-// 📚 **Función GET para obtener todas las compras**
 export const getAllPurchases = async (req: Request, res: Response) => {
   try {
     const purchases = await prisma.purchase.findMany({
