@@ -12,27 +12,27 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
     const { cartItems, totalAmount } = req.body;
 
     const lineItems = cartItems.map((item: any) => {
-      const price = Number(item.price); // Convertir item.price a un número
-      const quantity = Number(item.quantity); // Convertir item.quantity a un número
-
-      if (isNaN(price) || isNaN(quantity)) {
-        console.error(
-          `Error en el item ${item.name}: precio o cantidad no válidos`
-        );
-        throw new Error("Precio o cantidad no válidos");
+      // Verifica que item.price y item.name sean valores válidos
+      if (typeof item.price !== "number" || typeof item.name !== "string") {
+        throw new Error(`Datos inválidos en el ítem con ID ${item.id}`);
       }
 
       return {
         price_data: {
           currency: "usd",
           product_data: {
-            name: item.name,
+            name: item.name, // Asignación correcta del nombre del producto
           },
-          unit_amount: Math.round(price * 100), // Convertir a centavos
+          unit_amount: Math.round(item.price * 100), // Convertir precio a centavos
         },
-        quantity: quantity,
+        quantity: item.quantity,
       };
     });
+
+    console.log(
+      "Line Items enviados a Stripe:",
+      JSON.stringify(lineItems, null, 2)
+    );
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
