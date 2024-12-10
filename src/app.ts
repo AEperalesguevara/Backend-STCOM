@@ -14,7 +14,7 @@ const port = 3000;
 // Configuración de CORS para permitir solicitudes desde tu frontend
 app.use(
   cors({
-    origin: "https://stcom.vercel.app", // Replace with your frontend URL
+    origin: "*", // Replace with your frontend URL
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
