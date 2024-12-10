@@ -15,7 +15,7 @@ const cloudinary_1 = require("cloudinary");
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 cloudinary_1.v2.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
