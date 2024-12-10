@@ -8,9 +8,11 @@ import reservationRouter from "./routes/reservationRoute";
 import productRoutes from "./routes/productRoute";
 import paymentRoute from "./routes/paymentRoute";
 import purchaseRoute from "./routes/purchaseRoute";
+import connectCloudinary from "./config/cloudinary";
+
 const app = express();
 const port = 3000;
-
+connectCloudinary();
 // Configuración de CORS para permitir solicitudes desde tu frontend
 app.use(
   cors({

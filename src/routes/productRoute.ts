@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Endpoint para agregar producto (POST)
-productRoutes.post("/add", upload.single("image"), addProduct);
+productRoutes.post("/add", upload.array("images", 4), addProduct);
 
 // Endpoint para obtener todos los productos (GET)
 productRoutes.get("/", getProducts);
