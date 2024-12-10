@@ -7,12 +7,17 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
 });
 
 paymentRoute.post("/create-checkout-session", async (req, res) => {
-  console.log("Datos recibidos en la API:", req.body);
   try {
     const { cartItems, totalAmount } = req.body;
-
+    console.log("cartItems recibidos en el backend:", cartItems);
     const lineItems = cartItems.map((item: any) => {
       // Verifica que item.price y item.name sean valores válidos
+      console.log("Procesando ítem:", item);
+
+      // Verificar valores antes de la validación
+      console.log("item.name:", item.name);
+      console.log("item.price:", item.price);
+      console.log("item.quantity:", item.quantity);
       if (typeof item.price !== "number" || typeof item.name !== "string") {
         throw new Error(`Datos inválidos en el ítem con ID ${item.id}`);
       }
