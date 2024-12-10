@@ -21,16 +21,28 @@ const stripe = new stripe_1.default(process.env.STRIPE_SECRET_KEY || "", {
 paymentRoute.post("/create-checkout-session", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { cartItems, totalAmount } = req.body;
-        const lineItems = cartItems.map((item) => ({
-            price_data: {
-                currency: "usd",
-                product_data: {
-                    name: item.product_name,
+        console.log("cartItems recibidos en el backend:", cartItems);
+        const lineItems = cartItems.map((item) => {
+            // Verifica que item.price y item.name sean valores válidos
+            console.log("Procesando ítem:", item);
+            // Verificar valores antes de la validación
+            console.log("item.name:", item.name);
+            console.log("item.price:", item.price);
+            console.log("item.quantity:", item.quantity);
+            if (typeof item.price !== "number" || typeof item.name !== "string") {
+                throw new Error(`Datos inválidos en el ítem con ID ${item.id}`);
+            }
+            return {
+                price_data: {
+                    currency: "usd",
+                    product_data: {
+                        name: item.name, // Asignación correcta del nombre del producto
+                        quantity: item.quantity,
+                    },
+                    unit_amount: Math.round(item.price * 100), // Convertir precio a centavos
                 },
-                unit_amount: Math.round(item.product_price * 100), // Convertir a centavos
-            },
-            quantity: item.quantity,
-        }));
+            };
+        });
         console.log("Line Items enviados a Stripe:", JSON.stringify(lineItems, null, 2));
         const session = yield stripe.checkout.sessions.create({
             payment_method_types: ["card"],

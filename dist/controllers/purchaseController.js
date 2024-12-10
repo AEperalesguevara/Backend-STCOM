@@ -31,7 +31,7 @@ const createPurchase = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 },
             },
             include: {
-                items: true, // Incluir los productos asociados
+                items: true,
             },
         });
         res.status(201).json(purchase);
