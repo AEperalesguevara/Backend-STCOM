@@ -27,10 +27,10 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
           currency: "usd",
           product_data: {
             name: item.name, // Asignación correcta del nombre del producto
-            quantity: item.quantity,
           },
           unit_amount: Math.round(item.price * 100), // Convertir precio a centavos
         },
+        quantity: item.quantity,
       };
     });
 

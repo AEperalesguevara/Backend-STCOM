@@ -37,10 +37,10 @@ paymentRoute.post("/create-checkout-session", (req, res) => __awaiter(void 0, vo
                     currency: "usd",
                     product_data: {
                         name: item.name, // Asignación correcta del nombre del producto
-                        quantity: item.quantity,
                     },
                     unit_amount: Math.round(item.price * 100), // Convertir precio a centavos
                 },
+                quantity: item.quantity,
             };
         });
         console.log("Line Items enviados a Stripe:", JSON.stringify(lineItems, null, 2));
