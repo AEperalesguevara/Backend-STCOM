@@ -7,6 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
 });
 
 paymentRoute.post("/create-checkout-session", async (req, res) => {
+  console.log("Datos recibidos en la API:", req.body);
   try {
     const { cartItems, totalAmount } = req.body;
 
